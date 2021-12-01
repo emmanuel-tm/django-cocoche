@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Here are my local apps:
+    'applications.cocoche'
 ]
 
 MIDDLEWARE = [
