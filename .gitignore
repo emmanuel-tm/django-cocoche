@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# ddbb excludes
+/database
+
+# Images excludes
+images/
