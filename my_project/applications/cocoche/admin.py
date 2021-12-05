@@ -8,3 +8,7 @@ from applications.cocoche.models import *
 class UserAdmin(admin.ModelAdmin):
     pass
 
+@admin.register(CarsList)
+class CarsListAdmin(admin.ModelAdmin):
+    pass
+
