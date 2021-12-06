@@ -21,6 +21,7 @@ class CarsList (models.Model):
     id = models.BigAutoField(db_column='ID', primary_key=True)
     owner_id = models.CharField(verbose_name='owner id', max_length=120, unique=True)
     car_id = models.CharField(verbose_name='car id', max_length=120, unique=True)
+    title = models.CharField(verbose_name='title', max_length=150, default='')
     doors = models.PositiveSmallIntegerField(verbose_name='doors', default=0)
     cost = models.PositiveIntegerField(verbose_name='cost', default=0)
     url = models.CharField(verbose_name='url', max_length=150, default='')
