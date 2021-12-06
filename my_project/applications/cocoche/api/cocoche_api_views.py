@@ -18,6 +18,11 @@ PARAMS = dict(list_length=100)
 @api_view(['GET'])
 @permission_classes([]) # NOTE: No type of permission is required
 def get_cars(request):
+    '''
+    Vista personalizada de API para obtener la lista de los autos
+    y sus detalles, en caso de existir se actualiza el auto en la 
+    base de datos, de lo contrario, se registra como uno nuevo.
+    '''
 
     url = URL_BASE + ENDPOINT
     payload = PARAMS
@@ -27,8 +32,6 @@ def get_cars(request):
         cars = json.loads(response.text)
         cars_list = cars.get('carList')
 
-        i = 0
-        
         for car in cars_list:
             owner_id = car.get('ownerId')
             car_id = car.get('carId')
@@ -52,6 +55,7 @@ def get_cars(request):
             try:
                 car = CarsList.objects.get(owner_id=owner_id, car_id=car_id)
                 queryset = CarsList.objects.filter(owner_id=owner_id, car_id=car_id)
+                # NOTE: Update car object
                 queryset.update(
                     title = title,
                     doors = doors,
@@ -94,8 +98,6 @@ def get_cars(request):
                     rents_qty = rents_qty
                 )
                 item.save()
-                i += 1
-                print(i)
 
         return HttpResponse('<h1>Updated Database.</h1>')
     else:

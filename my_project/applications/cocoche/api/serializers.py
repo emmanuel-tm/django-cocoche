@@ -9,7 +9,7 @@ class CarsListSerializer(serializers.ModelSerializer):
     class Meta:
         model = CarsList
         fields = ('owner_id', 'car_id', 'title', 'doors',
-                    'cost', 'url', 'fuel_type', 'decription',
+                    'cost', 'url', 'fuel_type', 'description',
                     'model_description', 'brand_description',
                     'place_description', 'latitude', 'longitude',
                     'location', 'califications_avg', 'currency',
