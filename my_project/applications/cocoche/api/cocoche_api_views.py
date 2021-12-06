@@ -9,7 +9,7 @@ import json
 from applications.cocoche.models import CarsList
 
 
-# NOTE: We declare the variables related to the Cocoche API.
+# NOTE: We declare the variables related to Cocoche API.
 URL_BASE = 'https://server.cocoche.com.ar'
 ENDPOINT = '/car_listing_presentation'
 PARAMS = dict(list_length=100)
@@ -19,9 +19,10 @@ PARAMS = dict(list_length=100)
 @permission_classes([]) # NOTE: No type of permission is required
 def get_cars(request):
     '''
-    Vista personalizada de API para obtener la lista de los autos
-    y sus detalles, en caso de existir se actualiza el auto en la 
-    base de datos, de lo contrario, se registra como uno nuevo.
+    [METODO HTTP: GET]
+    \nVista de API Personalizada para obtener la lista de los autos
+    \ny sus detalles, en caso de existir se actualiza el auto en la 
+    \nbase de datos, de lo contrario, se registra como uno nuevo.
     '''
 
     url = URL_BASE + ENDPOINT
@@ -99,6 +100,6 @@ def get_cars(request):
                 )
                 item.save()
 
-        return HttpResponse('<h1>Updated Database.</h1>')
+        return HttpResponse('{"code": 200, "message": "updated database"}')
     else:
-        return HttpResponse('<h1>Error in the Database.</h1>')
+        return HttpResponse('{"code": 500, "message": internal server error"}')
