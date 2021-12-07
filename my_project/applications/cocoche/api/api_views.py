@@ -14,7 +14,7 @@ from datetime import datetime
 
 
 class GetCarsListAPIView (ListAPIView):
-    '''
+    __doc__ = '''
     [METODO HTTP: GET]
     \nEsta vista de API genérica devuelve una lista de todos
     \nlos autos presentes en la base de datos.
@@ -25,7 +25,7 @@ class GetCarsListAPIView (ListAPIView):
 
 
 class GetFordCarsAPIView(ListAPIView):
-    '''
+    __doc__ = '''
     [METODO HTTP: GET]
     \nEsta vista de API genérica-personalizada devuelve una lista
     \nde todos los autos presentes en la base de datos cuya marca 
@@ -64,6 +64,17 @@ class CreateUserAPIView(APIView):
     parser_classes = [JSONParser]
     
     def post(self, request, format=None):
+        '''
+        Se sobreescribe la función asociada al método POST para 
+        \nque reciba mediante el "request" los datos enviados.
+        \n'Content-Type: 'application/json'.
+        \nSchema:
+        \n{
+        \n    "name": "Emmanuel",
+        \n    "phone": "1234567899",
+        \n    "email": "email3456@gmail.com"
+        \n}
+        '''
 
         user_data = {}
 
