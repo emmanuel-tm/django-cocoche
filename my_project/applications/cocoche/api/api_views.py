@@ -67,13 +67,13 @@ class CreateUserAPIView(APIView):
         '''
         Se sobreescribe la función asociada al método POST para 
         \nque reciba mediante el "request" los datos enviados.
-        \n'Content-Type: 'application/json'.
-        \nSchema:
-        \n{
-        \n    "name": "Emmanuel",
-        \n    "phone": "1234567899",
-        \n    "email": "email3456@gmail.com"
-        \n}
+        \n`Content-Type: 'application/json`.
+        \n`Schema:`
+        \n`{`
+        \n` "name": "Emmanuel",`
+        \n` "phone": "1234567899",`
+        \n` "email": "email3456@gmail.com"`
+        \n`}`
         '''
 
         user_data = {}
