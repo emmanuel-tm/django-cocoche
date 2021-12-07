@@ -6,3 +6,6 @@ markdown==3.3.6
 django-filter==2.4.0
 # Driver de PostgreSQL para trabajar en Python:
 psycopg2-binary>=2.8
+# Swagger:
+PyYAML==6.0
+uritemplate==4.1.1
