@@ -15,9 +15,12 @@ from datetime import datetime
 
 class GetCarsListAPIView (ListAPIView):
     __doc__ = '''
-    [METODO HTTP: GET]
-    \nEsta vista de API genérica devuelve una lista de todos
-    \nlos autos presentes en la base de datos.
+    `[METODO HTTP: GET]`
+    \nVista de API Genérica-Personalizada(Hybrid) basada
+    \nen una Clase que permite recibir peticiones mediante el
+    \natributo request del tipo "GET".
+    \nDevuelve una lista de todos los autos presentes en la 
+    \nbase de datos.
     '''
     queryset = CarsList.objects.all()
     serializer_class = CarsListSerializer
@@ -26,17 +29,19 @@ class GetCarsListAPIView (ListAPIView):
 
 class GetFordCarsAPIView(ListAPIView):
     __doc__ = '''
-    [METODO HTTP: GET]
-    \nEsta vista de API genérica-personalizada devuelve una lista
-    \nde todos los autos presentes en la base de datos cuya marca 
-    \nes "FORD".
+    `[METODO HTTP: GET]`
+    \nVista de API Genérica-Personalizada(Hybrid) basada
+    \nen una Clase que permite recibir peticiones mediante el
+    \natributo request del tipo "GET".
+    \nDevuelve una lista de todos los autos presentes en la 
+    \nbase de datos cuya marca (brand) es FORD.
     '''
     serializer_class = CarsListSerializer
     permission_classes = []
 
     def get_queryset(self):
         '''
-        Sobreescribimos el método "get_queryset()" para poder filtrar
+        Se sobreescribe el método "get_queryset()" para poder filtrar
         aquellos autos cuya marca es "FORD".
         '''
         try:
@@ -48,15 +53,17 @@ class GetFordCarsAPIView(ListAPIView):
 
 class CreateUserAPIView(APIView):
     '''
-    [METODO HTTP: POST]
-    \nVista de API Genérica-Personalizada basadas en Clases que
-    \n recibe peticiones de tipo "POST".
-    \nSchema:
-    \n{
-    \n  "name": "string", 
-    \n  "phone": "string", 
-    \n  "email": "string"
-    \n}
+    `[METODO HTTP: POST]`
+    \nVista de API Genérica-Personalizada(Hybrid) basada
+    \nen una Clase que permite recibir peticiones mediante el
+    \natributo request del tipo "POST".
+    \n`Content-Type: 'application/json`.
+    \nEjemplo de Schema:
+    \n`{`
+    \n` "name": "your_name",`
+    \n` "phone": "0123456789",`
+    \n` "email": "your_mail@..."`
+    \n`}`
     '''
 
     permission_classes = []
@@ -68,11 +75,11 @@ class CreateUserAPIView(APIView):
         Se sobreescribe la función asociada al método POST para 
         \nque reciba mediante el "request" los datos enviados.
         \n`Content-Type: 'application/json`.
-        \n`Schema:`
+        \nEjemplo de Schema:
         \n`{`
-        \n` "name": "Emmanuel",`
-        \n` "phone": "1234567899",`
-        \n` "email": "email3456@gmail.com"`
+        \n` "name": "your_name",`
+        \n` "phone": "0123456789",`
+        \n` "email": "your_mail@..."`
         \n`}`
         '''
 

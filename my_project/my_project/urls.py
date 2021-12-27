@@ -18,6 +18,11 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from rest_framework.schemas import get_schema_view
 
+# NOTE: variable utilizada para la description en la API Doc de Swagger UI.
+description = '''<h2>Documentación de todos los recursos que ofrece este proyecto
+                cuyos datos son actualizados en la Base de Datos utilizando
+                Tareas Asincrónicas mediante Celery.</h2>'''
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     # Cocoche App:
@@ -32,7 +37,7 @@ urlpatterns = [
 
     path('openapi', get_schema_view(
         title="Project: Cocoche",
-        description="Cocoche API Docs",
+        description=description,
         version="1.0.0"
     ), name='openapi-schema')
 ]

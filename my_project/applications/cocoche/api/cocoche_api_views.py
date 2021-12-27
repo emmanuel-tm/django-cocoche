@@ -19,10 +19,10 @@ PARAMS = dict(list_length=100)
 @permission_classes([]) # NOTE: No type of permission is required
 def get_cars(request):
     '''
-    [METODO HTTP: GET]
-    \nVista de API Personalizada para obtener la lista de los autos
-    \ny sus detalles, en caso de existir se actualiza el auto en la 
-    \nbase de datos, de lo contrario, se registra como uno nuevo.
+    `[METODO HTTP: GET]`
+    \nVista de API Genérica-Personalizada(Hybrid) para obtener la lista
+    \nde los autos y sus detalles, en caso de existir se actualiza el
+    \nauto en la base de datos, de lo contrario, se registra como uno nuevo.
     '''
 
     url = URL_BASE + ENDPOINT
