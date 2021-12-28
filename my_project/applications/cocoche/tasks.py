@@ -1,26 +1,20 @@
-from django.db.models import query
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAdminUser
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
-import requests
-import json
-
+# Import the libraries:
+from celery import shared_task
 from applications.cocoche.models import CarsList
 
+import requests
+import json
 
 # NOTE: We declare the variables related to Cocoche API.
 URL_BASE = 'https://server.cocoche.com.ar'
 ENDPOINT = '/car_listing_presentation'
 PARAMS = dict(list_length=100)
 
-
-@api_view(['GET'])
-@permission_classes([]) # NOTE: No type of permission is required
-def get_cars(request):
+# Create your tasks here:
+@shared_task
+def get_cars():
     '''
-    `[METODO HTTP: GET]`
-    \nVista de API Genérica-Personalizada(Hybrid) para obtener la lista
+    \nFunción que actúa como tarea asincrónica para obtener la lista
     \nde los autos y sus detalles, en caso de existir se actualiza el
     \nauto en la base de datos, de lo contrario, se registra como uno nuevo.
     '''
@@ -100,6 +94,6 @@ def get_cars(request):
                 )
                 item.save()
 
-        return HttpResponse('{"code": 200, "message": "updated database"}')
+        print('{"code": 200, "message": "updated database"}')
     else:
-        return HttpResponse('{"code": 500, "message": internal server error"}')
+        print('{"code": 500, "message": internal server error"}')

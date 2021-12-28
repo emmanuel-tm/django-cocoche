@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from celery.schedules import crontab
 
 
 # Local Functions:
@@ -149,7 +150,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 
@@ -167,3 +168,24 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+#####################   ASYNCHRONOUS TASK      ######################
+
+# NOTE: Se setea las configuraciones de Celery:
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Argentina/Buenos_Aires'
+
+CELERY_BEAT_SCHEDULE = {
+    # Actualiza la Base de Datos ejecutando un request
+    # para obtener la lista de vehículos. Dicha tarea
+    # se ejecuta todos los lunes a las 3.00 AM.
+    'get_cars_list': {
+        'task': 'applications.cocoche.tasks.get_cars',
+        'schedule': crontab(minute=0, hour=3, day_of_week='monday')
+    }
+}

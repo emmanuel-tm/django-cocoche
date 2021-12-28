@@ -58,3 +58,32 @@ services:
     tty: true
     depends_on:
       - db
+
+  # Services for asynchronous tasks:
+  redis:
+    image: redis:latest
+    container_name: redis
+    depends_on:
+      - db
+
+  celery:
+    build: .
+    container_name: celery
+    command: bash -c "cd my_project/ && celery -A my_project worker -l INFO"
+    volumes:
+      - type: bind
+        source: .
+        target: /opt/back_end
+    depends_on:
+      - redis
+
+  celery-beat:
+    build: .
+    command: bash -c "cd my_project/ && celery -A my_project beat -l INFO"
+    container_name: celery_beat
+    volumes:
+      - type: bind
+        source: .
+        target: /opt/back_end
+    depends_on:
+      - redis
