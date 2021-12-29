@@ -1,16 +1,96 @@
-# **cocoche-django**
+# Django Dev
 
-# **Ejercicio API REST**
-Desarrollar una API en Python (utilizando el framework Django) que exponga los siguientes endpoints:
+## Pasos para poder utilizar y ejecutar el proyecto:
 
-## **GET /get_ford_cars**
-Devuelve una lista de autos cuya marca es "FORD". Para obtener la lista de autos completa, consumir el endpoint /car_listing_presentation?list_length (pasar 100 como parámetro). La API a consumir tiene la siguiente URL de base: http://server.cocoche.com.ar.
+- En la Consola o Terminal ejecutar el siguiente comando: 
 
-**Aclaración**: El sistema de donde se obtiene la lista de autos, Cocoche, actualiza su base de autos todos los lunes a las 3am (tenerlo en cuenta).
+**$** `git clone https://github.com/emmanuel-tm/django-cocoche.git`
 
-## **POST /create_user**
-El endpoint recibe como parámetro un JSON con el siguiente formato: {"name": "string", "phone": "string", "email": "string"} y devuelva otro JSON: {"id": "string", "createdAt": "dd-mm-AAAA"}
+- Una vez clonado el repositorio se deben seguir los siguientes pasos:
 
-El sistema deberá persistir los 5 campos (3 del request + id random + fecha de creación). Si el request intenta registrar un email existente, el sistema debe arrojar el error correspondiente. Los usuarios creados deben ser guardados en una base de datos. Especificar las credenciales de acceso a la base en este mismo archivo. **Usuario:** *admin* ; **Contraseña:** *admin* ; **Nombre de la DB:** *cocoche_db*.
+### 1. Correr el proyecto
+Siempre en el mismo directorio del archivo *docker-compose.yml*
+**$** `docker-compose up`
 
-**ACLARACIÓN:** Todo el código debe ser desarrollado en una rama aparte. Cuando se considere terminado, realizar un Merge Request (también llamado PR) sobre la rama Master.
+### 2. Correr la línea de comandos dentro del contenedor
+
+**$** `docker exec -i -t cocoche_django bash`
+
+Nos va a devolver a nuestra consola, una consola dentro del contenedor de software.
+
+
+Una vez dentro ejecutamos el comando:
+
+**$** `cd /opt/back_end/my_project` 
+
+### 3. Iniciar el servidor
+
+**NOTA:** Se actualizó el archivo docker-compose.yml, de esta manera, ya no se
+requiere iniciar el servidor (se inicia automáticamente al levantar el contenedor).
+De todas formas, en caso de que no suceda así o haya algún error que impida que iniciar
+el servidor, se deja a continuación el comado para hacerlo:
+
+(Siempre dentro de nuestro contenedor de software - Comando N°2)  
+Tenemos que ir a la carpeta donde se encuentra el archivo *manage.py*  
+
+**$** `python manage.py runserver 0.0.0.0:8000`  
+
+### 4. Ejecutar los siguientes comandos para realizar la primera migración:  
+
+**$** `python manage.py makemigrations`
+
+**$** `python manage.py migrate` 
+
+### 5. Creamos un super usuario:  
+
+**$** `python manage.py createsuperuser`
+
+### 6. Detener la ejecución de nuestro contenedor y nuestro servidor
+Tenemos que estar en la terminal que nos muestra los mensajes del servidor, tomada por el contenedor.
+Tan solo con el comando `ctrl + c`  se detiene la ejecución de nuestro contenedor.  
+
+Una forma alternativa es con el siguiente comando en la terminal del host:
+
+**$** `docker stop django_dev`  
+
+O también puede ser con docker-compose:
+Tenemos que estar en la carpeta que contiene el archivo *docker-compose.yml* y hacer:
+
+
+**$** `docker-compose down`  
+
+- Una vez clonado el repositorio se debe ingresar a la carpeta del respositorio, y estar en la misma dirección/path que los archivos "Dockerfile" y "docker-compose.yml". Una vez ubicado allí, ejecutar los siguientes comandos (**NOTA**: se debe tener instalado docker y docker-compose en tu sistema):
+
+    - *docker-compose up*
+
+- Con el comando anterior ya tenemos nuestra imagen creada y el contenedor corriendo, por lo cual queda tomada la terminal. Lo siguiente es abrir una nueva terminal (sin cerrar la anterior) y entrar dentro del container(contenedor) por lo que se debe ejecutar el siguiente comando:
+
+    - *docker exec -i -t "nombre_del_contenedor" bash*
+
+- Ya estamos dentro del contenedor, entonces procedemos.
+
+
+## Endpoint disponibles:
+
+    - http://localhost:8000/cocoche/create_user --> Se realiza un POST para registrar un nuevo usuario en formato JSON.
+
+    - http://localhost:8000/cocoche/get_cars/list --> Devuelve una lista de todos los vehículos.
+
+    - http://localhost:8000/cocoche/get_ford_cars --> Devuelve una lista de todos los vehículos cuya marca(brand) es "FORD".
+
+    - http://localhost:8000/admin/ --> Acceso al Administrador de Django (Django Admin).
+
+    - http://localhost:8080/ --> Acceso al Servicio de Adminer para poder visualizar las distintas tablas de la base de datos.
+
+    - http://localhost:8000/api-docs --> Devuelve un template con la documentación de todos los endpoints disponibles y sus APIs.
+
+
+**NOTA:** Para este proyecto no se requiere de ningún tipo de permisos para acceder a los *recursos* a través de los ENDPOINTS.
+
+
+---
+# Autor
+Emmanuel Torres Molina
+
+# Consultas
+eotorresmolina@gmail.com
