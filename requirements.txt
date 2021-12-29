@@ -1,0 +1,14 @@
+Django==3.2.2
+requests==2.26.0
+# Librerías para trabajar con Django Rest-Framework:
+djangorestframework==3.12.4
+markdown==3.3.6
+django-filter==2.4.0
+# Driver de PostgreSQL para trabajar en Python:
+psycopg2-binary>=2.8
+# Swagger:
+PyYAML==6.0
+uritemplate==4.1.1
+# Librerías para administrar Tareas Asincrónicas:
+celery==5.2.2
+redis==4.1.0
